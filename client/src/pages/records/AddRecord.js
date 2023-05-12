@@ -23,7 +23,7 @@ function AddRecord() {
   };
 
   return (
-    <div className="add-record-container">
+    <div className="add-record-container" >
       <Card title="Add Record" className="add-record-card">
         <Form form={form} onFinish={handleSubmit}>
           <Form.Item name="name" label="Name" rules={[{ required: true }]}>

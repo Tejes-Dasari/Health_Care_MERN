@@ -117,6 +117,12 @@ function AllRecords() {
             ),
         },
         {
+          title: 'Created At',
+          dataIndex: 'createdAt',
+          key: 'createdAt',
+          render: (createdAt) => new Date(createdAt).toLocaleString(),
+        },
+        {
           title: 'Action',
           dataIndex: 'action',
           key: 'action',
