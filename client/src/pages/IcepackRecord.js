@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import { Form, Input, Button, Table } from 'antd';
+import { Form, Input, Button, Table, Popconfirm} from 'antd';
 
 const IcepackRecord = () => {
   const [form] = Form.useForm();
@@ -30,7 +30,19 @@ const IcepackRecord = () => {
         console.error(error);
       });
   };
-
+  
+  const handleDelete = (id) => {
+    axios
+      .delete(`http://localhost:5000/icepack_record/${id}`)
+      .then((response) => {
+        console.log(response.data);
+        setIcePackRecords(icePackRecords.filter((record) => record._id !== id));
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  };
+  
   const columns = [
     {
       title: 'Name',
@@ -53,11 +65,23 @@ const IcepackRecord = () => {
       key: 'createdAt',
       render: (createdAt) => new Date(createdAt).toLocaleString(),
     },
+    {
+      title: 'Action',
+      key: 'action',
+      render: (text, record) => (
+        <Popconfirm title="Are you sure to delete this record?" onConfirm={() => handleDelete(record._id)}>
+        <Button type="danger" onConfirm={() => handleDelete(record._id)}>
+          Delete
+        </Button>
+      </Popconfirm>
+        
+      ),
+    },
   ];
 
   return (
     <div>
-      <h1 style={{marginBottom:"22px"}}>Ice Pack Record</h1>
+      <h1 style={{margin:"25px 0 22px 0"}}>Ice Pack Record</h1>
       <Form form={form} onFinish={onFinish} layout='coloumn'>
         <Form.Item label='Name' name='name' rules={[{ required: true, message: 'Please input your name!' }]}>
           <Input />
