@@ -26,8 +26,8 @@ const { Content } = Layout;
 
 function StockLayout() {
   return (
-    <Layout className="home-layout">
-        <Menu mode="horizontal" defaultSelectedKeys={["add_stock"]}>
+    <Layout style={{marginTop:"40px"}} className="home-layout">
+        <Menu mode="horizontal" defaultSelectedKeys={[""]}>
           <Menu.Item key="add_stock">
             <NavLink to="add_stock">Add Stock</NavLink>
           </Menu.Item>

@@ -1,11 +1,15 @@
 :root {
     --primary: #1677ff;;
+    background-image: url(https://learn.niituniversity.in/public/images/bnr.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
   }
   
   body {
     margin: 0;
     padding: 25px;
     font-family: "Poppins";
+
   }
   
   * {

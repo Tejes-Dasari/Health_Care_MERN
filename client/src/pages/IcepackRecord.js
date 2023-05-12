@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import { Form, Input, Button, Table, Popconfirm} from 'antd';
+import { Form, Input, Button, Table, Popconfirm, Card} from 'antd';
 
 const IcepackRecord = () => {
   const [form] = Form.useForm();
@@ -81,7 +81,8 @@ const IcepackRecord = () => {
 
   return (
     <div>
-      <h2 style={{margin:"25px 0 22px 0"}}>Ice Pack Record</h2>
+      <Card style={{marginTop:"50px"}}>
+      <h1 style={{margin:"25px 0 22px 0"}}>Ice Pack Record</h1>
       <Form form={form} onFinish={onFinish} layout='coloumn'>
         <Form.Item label='Name' name='name' rules={[{ required: true, message: 'Please input your name!' }]}>
           <Input />
@@ -100,8 +101,9 @@ const IcepackRecord = () => {
         </Form.Item>
       </Form>
 
-      <h3>Records</h3>
+      <h2>Records</h2>
       <Table dataSource={icePackRecords} columns={columns} rowKey='_id' />
+      </Card>
     </div>
   );
 };
