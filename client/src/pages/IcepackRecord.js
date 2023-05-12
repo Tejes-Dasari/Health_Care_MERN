@@ -81,7 +81,7 @@ const IcepackRecord = () => {
 
   return (
     <div>
-      <h1 style={{margin:"25px 0 22px 0"}}>Ice Pack Record</h1>
+      <h2 style={{margin:"25px 0 22px 0"}}>Ice Pack Record</h2>
       <Form form={form} onFinish={onFinish} layout='coloumn'>
         <Form.Item label='Name' name='name' rules={[{ required: true, message: 'Please input your name!' }]}>
           <Input />
@@ -100,7 +100,7 @@ const IcepackRecord = () => {
         </Form.Item>
       </Form>
 
-      <h2>Records</h2>
+      <h3>Records</h3>
       <Table dataSource={icePackRecords} columns={columns} rowKey='_id' />
     </div>
   );
