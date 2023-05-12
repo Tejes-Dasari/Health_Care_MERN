@@ -97,7 +97,7 @@ const IcepackRecord = () => {
         </Form.Item>
 
         <Form.Item>
-          <Button type='primary' htmlType='submit'>Add Record</Button>
+          <Button style= {{backgroundColor: "#81181d"}} type='primary' htmlType='submit'>Add Record</Button>
         </Form.Item>
       </Form>
 

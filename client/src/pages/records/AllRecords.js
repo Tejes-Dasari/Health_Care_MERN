@@ -130,7 +130,7 @@ function AllRecords() {
             if (editingId === record._id) {
               return (
                 <>
-                  <Button type="primary" onClick={() => saveEdit(record)}>
+                  <Button  type="primary" onClick={() => saveEdit(record)}>
                     Save
                   </Button>
                   <Button onClick={cancelEdit}>Cancel</Button>

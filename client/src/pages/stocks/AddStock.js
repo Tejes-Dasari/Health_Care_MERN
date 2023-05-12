@@ -34,7 +34,7 @@ const AddStock = () => {
           <Input.TextArea />
         </Form.Item>
         <Form.Item>
-          <Button type="primary" htmlType="submit" loading={submitting}>Add Stock</Button>
+          <Button style= {{backgroundColor: "#81181d"}} type="primary" htmlType="submit" loading={submitting}>Add Stock</Button>
         </Form.Item>
       </Form>
     </Card>

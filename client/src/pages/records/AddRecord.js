@@ -36,7 +36,7 @@ function AddRecord() {
             <Input.TextArea />
           </Form.Item>
           <Form.Item>
-            <Button type="primary" htmlType="submit" loading={submitting}>Add Record</Button>
+            <Button style= {{backgroundColor: "#81181d"}} type="primary" htmlType="submit" loading={submitting}>Add Record</Button>
           </Form.Item>
         </Form>
       </Card>
