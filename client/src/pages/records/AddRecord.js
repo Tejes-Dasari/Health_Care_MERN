@@ -1,49 +1,47 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import { Card, Form, Input, Button } from 'antd';
 
 function AddRecord() {
-  const [name, setName] = useState('');
-  const [enrollmentNumber, setEnrollmentNumber] = useState('');
-  const [description, setDescription] = useState('');
+  const [form] = Form.useForm();
+  const [submitting, setSubmitting] = useState(false);
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    const record = { name, enrollmentNumber, description };
-    axios.post('http://localhost:5000/records/add_record', record)
+  const handleSubmit = (values) => {
+    setSubmitting(true);
+    axios.post('http://localhost:5000/records/add_record', values)
       .then((response) => {
         console.log(response.data);
-        alert("Record Added Sucessfully")
+        alert("Record added successfully");
+        form.resetFields();
       })
       .catch((error) => {
         console.log(error);
+      })
+      .finally(() => {
+        setSubmitting(false);
       });
   };
 
-  const handleRefresh = () => {
-    window.location.reload();
-  };
-
-
   return (
-    <form className="Form" onSubmit={handleSubmit}>
-      <label className='label'>
-        Name:
-        <input id="name" type="text" value={name} onChange={(event) => setName(event.target.value)} />
-      </label>
-      <br />
-      <label className='label'>
-        Enrollment Number:
-        <input id="enrollmentNumber" type="text" value={enrollmentNumber} onChange={(event) => setEnrollmentNumber(event.target.value)} />
-      </label>
-      <br />
-      <label className='label'>
-        Description:
-        <textarea id="description" value={description} onChange={(event) => setDescription(event.target.value)} />
-      </label>
-      <br />
-      <button onClick={handleRefresh} type="submit">Add Record</button>
-    </form>
+    <div className="add-record-container">
+      <Card title="Add Record" className="add-record-card">
+        <Form form={form} onFinish={handleSubmit}>
+          <Form.Item name="name" label="Name" rules={[{ required: true }]}>
+            <Input />
+          </Form.Item>
+          <Form.Item name="enrollmentNumber" label="Enrollment Number" rules={[{ required: true }]}>
+            <Input />
+          </Form.Item>
+          <Form.Item name="description" label="Description">
+            <Input.TextArea />
+          </Form.Item>
+          <Form.Item>
+            <Button type="primary" htmlType="submit" loading={submitting}>Add Record</Button>
+          </Form.Item>
+        </Form>
+      </Card>
+    </div>
   );
 }
 
-export default AddRecord
+export default AddRecord;
