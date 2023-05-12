@@ -1,5 +1,5 @@
 :root {
-    --primary: #81181d;;
+    --primary: #1677ff;;
   }
   
   body {
@@ -16,7 +16,7 @@
     display: flex;
     gap: 18px;
     justify-content: flex-end;
-    max-width: 1400px;
+    max-width: 1200px;
     margin: 0 auto;
   }
   
@@ -27,7 +27,7 @@
   
   header nav a{
     text-decoration: none;
-    padding: 10px;
+    padding: 8px;
     border-radius: 4px;
   }
   
