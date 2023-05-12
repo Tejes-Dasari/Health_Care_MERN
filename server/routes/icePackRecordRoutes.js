@@ -1,10 +1,10 @@
-const express = require('express');
+const express = require("express");
 const router = express.Router();
-const IcePackRecord = require('../models/IcePackRecord');
-const nodemailer = require('nodemailer');
+const IcePackRecord = require("../models/IcePackRecord");
+const nodemailer = require("nodemailer");
 
 // Get all ice pack records
-router.get('/', async (req, res) => {
+router.get("/", async (req, res) => {
   try {
     const icePackRecords = await IcePackRecord.find();
     res.json(icePackRecords);
@@ -14,11 +14,11 @@ router.get('/', async (req, res) => {
 });
 
 // Add a new ice pack record
-router.post('/', async (req, res) => {
+router.post("/", async (req, res) => {
   const icePackRecord = new IcePackRecord({
     name: req.body.name,
     icepackCount: req.body.icepackCount,
-    email: req.body.email
+    email: req.body.email,
   });
 
   try {
@@ -27,24 +27,31 @@ router.post('/', async (req, res) => {
     // Send email after 1 minute
     setTimeout(async () => {
       const transporter = nodemailer.createTransport({
-        service: 'gmail',
+        service: "gmail",
         auth: {
           user: process.env.EMAIL_USERNAME,
-          pass: process.env.EMAIL_PASSWORD
-        }
+          pass: process.env.EMAIL_PASSWORD,
+        },
       });
 
       const mailOptions = {
         from: process.env.EMAIL_USERNAME,
         to: req.body.email,
-        subject: 'Icepack return remainder',
-        text: 'This is a reminder to return your Icepack.'
+        subject: "Icepack return remainder",
+        html: `
+    <div style="text-align:center">
+      <img src="https://is4-ssl.mzstatic.com/image/thumb/Purple118/v4/62/cd/f5/62cdf5b2-a731-76ca-aa69-fe82c8a09d94/source/512x512bb.jpg" alt="Logo" style="width: 100px; height: 100px;">
+      <h1>Health Care NU</h1>
+    </div>
+    <p>Dear ${req.body.name},</p>
+    <p>This is a reminder to return your icepack.</p>
+    <p>Thank you, have a nice day 🙂.</p>
+  `,
       };
 
       await transporter.sendMail(mailOptions);
-      console.log('Email sent successfully!');
-    }, 30000);
-
+      console.log("Email sent successfully!");
+    }, 10000);
   } catch (error) {
     res.status(400).json({ message: error.message });
   }

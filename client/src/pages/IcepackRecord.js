@@ -1,10 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import { Form, Input, Button, Table } from 'antd';
 
 const IcepackRecord = () => {
-  const [name, setName] = useState('');
-  const [icepackCount, setIcepackCount] = useState(0);
-  const [email, setEmail] = useState('');
+  const [form] = Form.useForm();
   const [icePackRecords, setIcePackRecords] = useState([]);
 
   useEffect(() => {
@@ -18,54 +17,67 @@ const IcepackRecord = () => {
       });
   }, []);
 
-  const handleSubmit = event => {
-    event.preventDefault();
-
+  const onFinish = (values) => {
     axios.post('http://localhost:5000/icepack_record', {
-      name,
-      icepackCount,
-      email
+      ...values
     })
       .then(response => {
         console.log(response.data);
         setIcePackRecords([...icePackRecords, response.data]);
-        setName('');
-        setIcepackCount(0);
-        setEmail('');
+        form.resetFields();
       })
       .catch(error => {
         console.error(error);
       });
   };
 
+  const columns = [
+    {
+      title: 'Name',
+      dataIndex: 'name',
+      key: 'name',
+    },
+    {
+      title: 'Ice Pack Count',
+      dataIndex: 'icepackCount',
+      key: 'icepackCount',
+    },
+    {
+      title: 'Email',
+      dataIndex: 'email',
+      key: 'email',
+    },
+    {
+      title: 'Created At',
+      dataIndex: 'createdAt',
+      key: 'createdAt',
+      render: (createdAt) => new Date(createdAt).toLocaleString(),
+    },
+  ];
+
   return (
     <div>
-      <h1>Ice Pack Record</h1>
-      <form onSubmit={handleSubmit}>
-        <label className='icepack' htmlFor="name">Name:</label>
-        <input type="text" id="name" value={name} onChange={event => setName(event.target.value)} required />
+      <h1 style={{marginBottom:"22px"}}>Ice Pack Record</h1>
+      <Form form={form} onFinish={onFinish} layout='coloumn'>
+        <Form.Item label='Name' name='name' rules={[{ required: true, message: 'Please input your name!' }]}>
+          <Input />
+        </Form.Item>
 
-        <label className='icepack' htmlFor="icepackCount">Ice Pack Count:</label>
-        <input type="number" id="icepackCount" value={icepackCount} onChange={event => setIcepackCount(event.target.value)} required />
+        <Form.Item label='Ice Pack Count' name='icepackCount' rules={[{ required: true, message: 'Please input ice pack count!' }]}>
+          <Input type='number' />
+        </Form.Item>
 
-        <label className='icepack' htmlFor="email">Email:</label>
-        <input type="email" id="email" value={email} onChange={event => setEmail(event.target.value)} required />
+        <Form.Item label='Email' name='email' rules={[{ required: true, message: 'Please input your email!' }]}>
+          <Input type='email' />
+        </Form.Item>
 
-        <button type="submit">Add Record</button>
-      </form>
+        <Form.Item>
+          <Button type='primary' htmlType='submit'>Add Record</Button>
+        </Form.Item>
+      </Form>
 
-      <h2>Records:</h2>
-      <ul>
-      {Array.isArray(icePackRecords) &&
-        icePackRecords.map(icePackRecord => (
-          <li key={icePackRecord._id}>
-            <div>Name: {icePackRecord.name}</div>
-            <div>Ice Pack Count: {icePackRecord.icepackCount}</div>
-            <div>Email: {icePackRecord.email}</div>
-            <div>Created At: {new Date(icePackRecord.createdAt).toLocaleString()}</div>
-          </li>
-        ))}
-      </ul>
+      <h2>Records</h2>
+      <Table dataSource={icePackRecords} columns={columns} rowKey='_id' />
     </div>
   );
 };
