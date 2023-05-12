@@ -1,43 +1,45 @@
-// StockForm.js
 import React, { useState } from 'react';
 import axios from 'axios';
+import { Card, Form, Input, Button } from 'antd';
 
 const AddStock = () => {
-  const [medicineName, setMedicineName] = useState('');
-  const [inStock, setInStock] = useState('');
-  const [description, setDescription] = useState('');
+  const [form] = Form.useForm();
+  const [submitting, setSubmitting] = useState(false);
 
-  const handleSubmit = event => {
-    event.preventDefault();
-    axios.post('http://localhost:5000/stock/add_stock', { medicineName, inStock, description })
-      .then(response => console.log(response.data))
-      alert("Stock Added Sucessfully")
-      .catch(error => console.log(error));
+  const handleSubmit = values => {
+    setSubmitting(true);
+    axios.post('http://localhost:5000/stock/add_stock', values)
+      .then(response => {
+        console.log(response.data);
+        alert("Stock added successfully");
+        form.resetFields();
+      })
+      .catch(error => console.log(error))
+      .finally(() => {
+        setSubmitting(false);
+      });
   };
 
-  const handleRefresh = () => {
-    window.location.reload();
-  };
-
   return (
-    <form className="Form" onSubmit={handleSubmit}>
-      <label className='label'>
-        Medicine Name:
-        <input type="text" value={medicineName} onChange={event => setMedicineName(event.target.value)} />
-      </label >
-      <br />
-      <label className='label'>
-        In Stock:
-        <input type="number" value={inStock} onChange={event => setInStock(event.target.value)} />
-      </label>
-      <br />
-      <label className='label'>
-        Description:
-        <textarea value={description} onChange={event => setDescription(event.target.value)} />
-      </label>
-      <br />
-      <button onClick={handleRefresh} type="submit">Submit</button>
-    </form>
+    <div className="add-record-container">
+      <Card title="Add Stock" className="add-record-card">
+      <Form form={form} onFinish={handleSubmit}>
+        <Form.Item name="medicineName" label="Medicine Name" rules={[{ required: true }]}>
+          <Input />
+        </Form.Item>
+        <Form.Item name="inStock" label="In Stock" rules={[{ required: true }]}>
+          <Input type="number" />
+        </Form.Item>
+        <Form.Item name="description" label="Description">
+          <Input.TextArea />
+        </Form.Item>
+        <Form.Item>
+          <Button type="primary" htmlType="submit" loading={submitting}>Add Stock</Button>
+        </Form.Item>
+      </Form>
+    </Card>
+    </div>
+    
   );
 };
 
