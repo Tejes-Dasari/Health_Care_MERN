@@ -30,7 +30,7 @@ import AllStocks from "pages/stocks/AllStocks";
 import Welcome from "pages/Welcome";
 
 function App() {
-  const { isLoading, user, logout, getIdTokenClaims } = useAuth0();
+  const { isLoading, logout, getIdTokenClaims } = useAuth0();
 
   if (isLoading) {
     return <span>loading...</span>;
@@ -83,15 +83,6 @@ function App() {
       }
     },
     getPermissions: async () => null,
-    getIdentity: async () => {
-      if (user) {
-        return {
-          ...user,
-          avatar: user.picture,
-        };
-      }
-      return null;
-    },
   };
 
   return (

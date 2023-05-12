@@ -26,8 +26,8 @@ const { Content } = Layout;
 
 function HomeLayout() {
   return (
-    <Layout className="home-layout">
-        <Menu mode="horizontal" defaultSelectedKeys={['1']}>
+    <Layout style={{marginTop:"40px"}} className="home-layout">
+        <Menu mode="horizontal" defaultSelectedKeys={['']}>
           <Menu.Item key="1">
             <NavLink to="add_record">Add Record</NavLink>
           </Menu.Item>
