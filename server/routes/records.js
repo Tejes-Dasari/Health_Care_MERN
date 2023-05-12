@@ -20,4 +20,42 @@ router.post('/add_record', (req, res) => {
     .catch((err) => res.status(400).json('Error: ' + err));
 });
 
+// Update a record
+router.put('/update_record/:id', (req, res) => {
+  const { name, enrollmentNumber, description } = req.body;
+  const recordId = req.params.id;
+
+  Record.findById(recordId)
+    .then((record) => {
+      if (!record) {
+        return res.status(404).json('Record not found');
+      }
+
+      record.name = name;
+      record.enrollmentNumber = enrollmentNumber;
+      record.description = description;
+
+      record
+        .save()
+        .then(() => res.json('Record updated!'))
+        .catch((err) => res.status(400).json('Error: ' + err));
+    })
+    .catch((err) => res.status(400).json('Error: ' + err));
+});
+
+router.delete('/delete_record/:id', (req, res) => {
+  const recordId = req.params.id;
+
+  Record.findByIdAndDelete(recordId)
+    .then((record) => {
+      if (!record) {
+        return res.status(404).json('Record not found');
+      }
+      res.json('Record deleted!');
+    })
+    .catch((err) => res.status(400).json('Error: ' + err));
+});
+
+
+
 module.exports = router;
