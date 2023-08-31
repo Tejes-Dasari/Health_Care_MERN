@@ -47,6 +47,9 @@ PUT /stock/update_stock/:id: Update a stock entry.
 
 DELETE /stock/delete_stock/:id: Delete a stock entry.
 
+
+**Disclaimer:** This project is developed for educational purposes and might require further optimizations for use in production environments.
+
 GET /icepack_record: Get all ice pack records.
 
 POST /icepack_record: Add a new ice pack record.
