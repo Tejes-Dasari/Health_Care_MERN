@@ -29,7 +29,7 @@ Responsive Design: The application is designed to work well on various devices.
 
 **API Endpoints**
 
-The server-side of this application provides the following API endpoints:
+The server side of this application provides the following API endpoints:
 
 GET /records/all_records: Get all health care records.
 
@@ -47,11 +47,10 @@ PUT /stock/update_stock/:id: Update a stock entry.
 
 DELETE /stock/delete_stock/:id: Delete a stock entry.
 
-
-**Disclaimer:** This project is developed for educational purposes and might require further optimizations for use in production environments.
-
 GET /icepack_record: Get all ice pack records.
 
 POST /icepack_record: Add a new ice pack record.
 
 DELETE /icepack_record/:id: Delete an ice pack record by ID.
+
+**Disclaimer:** This project is developed for educational purposes and might require further optimizations for use in production environments.
