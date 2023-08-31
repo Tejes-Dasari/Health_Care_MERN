@@ -53,4 +53,11 @@ The server side of this application provides the following API endpoints:
 
 `DELETE /icepack_record/:id`: Delete an ice pack record by ID.
 
+## Demo Video
+
+Check out the working demo of the project in action:
+
+https://github.com/Tejes-Dasari/Health_Care_MERN/assets/122670312/00278055-2770-4ddc-8f12-b3c4acbfba4b
+
+
 **Disclaimer:** This project is developed for educational purposes and might require further optimizations for use in production environments.
